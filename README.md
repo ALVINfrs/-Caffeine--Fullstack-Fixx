@@ -66,7 +66,7 @@ Aplikasi ini telah terintegrasi dengan **Midtrans Snap** untuk memproses pembaya
 
 ### 2. Tambahkan ke `.env` di `backend/`
 
-env
+```env
 MIDTRANS_SERVER_KEY=Your-Midtrans-Server-Key
 MIDTRANS_CLIENT_KEY=Your-Midtrans-Client-Key
 MIDTRANS_IS_PRODUCTION=false
