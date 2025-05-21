@@ -1,88 +1,81 @@
-☕<Caffeine/> — Coffee Shop for Coders
-<Caffeine/> adalah aplikasi fullstack bertema kedai kopi online yang dirancang khusus untuk programmer. Menghadirkan suasana cozy dan ramah ngoding, aplikasi ini memungkinkan pengguna untuk melihat menu, memesan minuman, melakukan checkout, dan mencetak struk langsung dari perangkat mereka.
+# ☕<Caffeine/> — Coffee Shop for Coders
 
-🛠️ Teknologi yang Digunakan
-Frontend
-Next.js — Framework React untuk SSR dan SPA
+**<Caffeine/>** adalah aplikasi fullstack bertema kedai kopi online yang dirancang khusus untuk programmer. Menghadirkan suasana cozy dan ramah ngoding, aplikasi ini memungkinkan pengguna untuk melihat menu, memesan minuman, melakukan checkout, dan mencetak struk langsung dari perangkat mereka.
 
-Tailwind CSS — Utility-first CSS untuk styling cepat dan responsif
+---
 
-Radix UI + Shadcn/UI — Komponen UI modern
+## 🛠️ Teknologi yang Digunakan
 
-React Hook Form + Zod — Validasi form efisien
+### Frontend
+- **Next.js** — Framework React untuk SSR dan SPA
+- **Tailwind CSS** — Utility-first CSS untuk styling cepat dan responsif
+- **Radix UI + Shadcn/UI** — Komponen UI modern
+- **React Hook Form + Zod** — Validasi form efisien
+- **Recharts** — Visualisasi data
+- **Lucide Icons** — Ikon modern dan ringan
 
-Recharts — Visualisasi data
+### Backend
+- **Express.js** — Web framework minimalis untuk REST API
+- **MySQL (via mysql2)** — Database relasional
+- **bcryptjs** — Enkripsi password
+- **express-session** — Autentikasi berbasis session
+- **dotenv, cors, body-parser** — Middleware pendukung
+- **Midtrans API (Snap)** — Payment Gateway untuk pemrosesan transaksi online
 
-Lucide Icons — Ikon modern dan ringan
+---
 
-Backend
-Express.js — Web framework minimalis untuk REST API
+## 📁 Struktur Folder
 
-MySQL (via mysql2) — Database relasional
-
-bcryptjs — Enkripsi password
-
-express-session — Autentikasi berbasis session
-
-dotenv, cors, body-parser — Middleware pendukung
-
-Midtrans API (Snap) — Payment Gateway untuk pemrosesan transaksi online
-
-📁 Struktur Folder
-bash
-Copy
-Edit
 caffeine-fullstack/
-├── backend/     # Backend Express API
-├── frontend/    # Frontend Next.js App
-🌐 Fitur Utama
-Umum
-Halaman navigasi: Home, Tentang Kami, Menu, Kontak Kami
+├── backend/ # Backend Express API
+├── frontend/ # Frontend Next.js App
 
-Desain dark theme yang cozy dan nyaman untuk programmer
-
-Fitur Login & Register user
-
-Desain responsif (mobile & desktop)
-
-Menu & Pemesanan
-Menampilkan daftar menu minuman dan makanan
-
-Checkout langsung di modal (CheckoutModal.tsx)
-
-Redirect ke halaman successful-transaction.tsx setelah pembayaran
-
-Receipt Modal: menampilkan riwayat pesanan dan cetak struk
-
-Integrasi Midtrans Snap untuk pembayaran cepat dan aman
-
-💳 Integrasi Midtrans
-Aplikasi ini telah terintegrasi dengan Midtrans Snap untuk memproses pembayaran secara real-time.
-
-1. Daftar dan Dapatkan API Key
-Buat akun di https://dashboard.midtrans.com
-
-Masuk ke menu Settings > Access Keys
-
-Dapatkan:
-
-MIDTRANS_SERVER_KEY
-
-MIDTRANS_CLIENT_KEY
-
-2. Tambahkan ke .env di backend/
-env
+markdown
 Copy
 Edit
+
+---
+
+## 🌐 Fitur Utama
+
+### Umum
+- Halaman navigasi: Home, Tentang Kami, Menu, Kontak Kami
+- Desain dark theme yang cozy dan nyaman untuk programmer
+- Fitur Login & Register user
+- Desain responsif (mobile & desktop)
+
+### Menu & Pemesanan
+- Menampilkan daftar menu minuman dan makanan
+- Checkout langsung di modal (`CheckoutModal.tsx`)
+- Redirect ke halaman `successful-transaction.tsx` setelah pembayaran
+- Receipt Modal: menampilkan riwayat pesanan dan cetak struk
+- **Integrasi Midtrans Snap** untuk pembayaran cepat dan aman
+
+---
+
+## 💳 Integrasi Midtrans
+
+Aplikasi ini telah terintegrasi dengan **Midtrans Snap** untuk memproses pembayaran secara real-time.
+
+### 1. Daftar dan Dapatkan API Key
+- Buat akun di [https://dashboard.midtrans.com](https://dashboard.midtrans.com)
+- Masuk ke menu `Settings > Access Keys`
+- Dapatkan:
+  - `MIDTRANS_SERVER_KEY`
+  - `MIDTRANS_CLIENT_KEY`
+
+### 2. Tambahkan ke `.env` di `backend/`
+
+env
 MIDTRANS_SERVER_KEY=Your-Midtrans-Server-Key
 MIDTRANS_CLIENT_KEY=Your-Midtrans-Client-Key
 MIDTRANS_IS_PRODUCTION=false
-3. Endpoint Backend
-Contoh endpoint untuk generate Snap Token:
-
+3. Endpoint Backend (Contoh)
 js
 Copy
 Edit
+const midtransClient = require('midtrans-client');
+
 router.post("/create-payment", async (req, res) => {
   const snap = new midtransClient.Snap({
     isProduction: process.env.MIDTRANS_IS_PRODUCTION === "true",
@@ -107,18 +100,14 @@ router.post("/create-payment", async (req, res) => {
     res.status(500).json({ message: "Gagal membuat transaksi Midtrans." });
   }
 });
-4. Integrasi Frontend (Next.js)
-Panggil API backend untuk mendapatkan snapToken
-
-Tampilkan modal Snap di client menggunakan Midtrans JS SDK:
-
-js
+4. Integrasi Frontend
+tsx
 Copy
 Edit
 useEffect(() => {
   const script = document.createElement("script");
   script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-  script.setAttribute("data-client-key", process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY);
+  script.setAttribute("data-client-key", process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY!);
   document.body.appendChild(script);
 }, []);
 🧠 Konsep Desain
@@ -194,3 +183,6 @@ Buat pull request
 MIT License © 2025 — <Caffeine/> by Muhammad Alvin Faris
 
 Made with ❤️ and ☕ by Developer @ <Caffeine/>
+nginx
+Copy
+Edit
